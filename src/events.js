@@ -49,6 +49,26 @@ function events(db) {
     );
   });
 
+  router.post("/invitado", (req, res, next) => {
+    console.log(req.body);
+    req.body.invitaciones.forEach((element) => {
+      updateQuery =
+        "update invitacion  set confirmado = ? where invitacion_id = ?";
+      db.query(
+        updateQuery,
+        [element.confirmado, element.invitacion_id],
+        (error, results) => {
+          if (error) {
+            console.log(error);
+            res.status(500).json({ status: "error" });
+          } else {
+          }
+        }
+      );
+    });
+    res.status(200).json({ status: "ok" });
+  });
+
   return router;
 }
 
